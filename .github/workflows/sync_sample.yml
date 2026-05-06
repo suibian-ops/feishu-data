@@ -1,0 +1,33 @@
+name: Sync Sample Production Data
+on:
+  schedule:
+    # 北京时间 9:00、14:00、20:00（自动同步）
+    - cron: '0 1 * * *'
+    - cron: '0 6 * * *'
+    - cron: '0 12 * * *'
+  workflow_dispatch:  # 手动触发：GitHub Actions 页面 → Run workflow
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Sync 样稿制作记录
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          OUTPUT_PATH: sample_production.json
+        run: python sync_sample_production.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sample_production.json sample_production.html sync_sample_production.py
+          git diff --cached --quiet || git commit -m "auto: sync sample production data $(date +%Y-%m-%dT%H:%M)"
+          git push
