@@ -6,62 +6,71 @@
   <title>样稿制作量查询</title>
   <style>
     :root {
-      --brand: #3370ff;
-      --brand-light: #e6ecff;
-      --bg: #f4f5f7;
+      --brand: #8B5CF6;
+      --brand-light: #EDE9FE;
+      --brand-soft: #F5F3FF;
+      --bg: #FAFAFA;
       --card: #ffffff;
-      --text: #1f2329;
-      --text-2: #646a73;
-      --border: #e4e7eb;
-      --green: #0f9d58;
-      --green-bg: #e6f4ea;
-      --orange: #f57c00;
-      --orange-bg: #fff3e0;
+      --text: #1f2937;
+      --text-2: #6B7280;
+      --border: #E5E7EB;
+      --green: #10B981;
+      --green-bg: #D1FAE5;
+      --orange: #F59E0B;
+      --orange-bg: #FEF3C7;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: var(--bg);
+      background: linear-gradient(180deg, #F5F3FF 0%, #FAFAFA 300px);
       color: var(--text);
       font-size: 14px;
-      padding: 20px;
+      padding: 24px;
       min-height: 100vh;
     }
 
     /* 顶部横幅 */
     .top-banner {
-      background: linear-gradient(135deg, #3370ff 0%, #1d4ed8 100%);
-      color: white;
-      padding: 28px 32px;
-      border-radius: 12px;
-      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #F5F3FF 100%);
+      color: var(--text);
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      border: 1px solid #E5E7EB;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
     .top-banner h1 {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 8px;
     }
     .top-banner .subtitle {
-      font-size: 13px;
-      opacity: 0.85;
+      font-size: 14px;
+      color: var(--text-2);
       margin-top: 4px;
     }
     .top-banner .badge {
-      background: rgba(255,255,255,0.2);
+      background: var(--brand-light);
       border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 12px;
+      padding: 8px 16px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       gap: 6px;
+      color: var(--brand);
+      font-weight: 500;
     }
     .top-banner .badge a {
-      color: white;
+      color: var(--brand);
+      text-decoration: none;
+    }
+    .top-banner .badge a:hover {
       text-decoration: underline;
-      opacity: 0.9;
     }
 
     /* 数据加载提示 */
@@ -88,7 +97,7 @@
       text-align: center;
       padding: 40px;
       background: #fef2f2;
-      border-radius: 8px;
+      border-radius: 12px;
       color: #dc2626;
       border: 1px solid #fecaca;
     }
@@ -97,145 +106,157 @@
     .stats-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 16px;
+      margin-bottom: 20px;
     }
     .stat-card {
       background: var(--card);
-      border-radius: 10px;
-      padding: 16px 20px;
+      border-radius: 16px;
+      padding: 20px 24px;
       border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .stat-card .label {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-2);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-weight: 500;
     }
     .stat-card .value {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700;
       line-height: 1;
+      color: var(--text);
     }
     .stat-card .sub {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-2);
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     /* 筛选区域 */
     .filter-bar {
       background: var(--card);
-      border-radius: 10px;
-      padding: 16px 20px;
+      border-radius: 16px;
+      padding: 20px 24px;
       border: 1px solid var(--border);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
       align-items: flex-end;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .filter-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
     .filter-group label {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-2);
       font-weight: 500;
     }
     .filter-group input,
     .filter-group select {
-      height: 34px;
+      height: 38px;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0 10px;
-      font-size: 13px;
+      border-radius: 10px;
+      padding: 0 14px;
+      font-size: 14px;
       color: var(--text);
       background: white;
       outline: none;
-      transition: border-color 0.15s;
+      transition: all 0.2s;
     }
     .filter-group input:focus,
     .filter-group select:focus {
       border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
     }
     input[type="date"] {
-      width: 140px;
+      width: 150px;
     }
 
     /* 快捷时间按钮 */
     .time-btns {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
     .time-btns label {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-2);
       font-weight: 500;
     }
     .btn-row {
       display: flex;
-      gap: 6px;
+      gap: 8px;
     }
     .time-btn {
-      height: 34px;
-      padding: 0 12px;
+      height: 38px;
+      padding: 0 16px;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 10px;
       background: white;
-      font-size: 12px;
+      font-size: 13px;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s;
       color: var(--text);
       white-space: nowrap;
     }
     .time-btn:hover {
       border-color: var(--brand);
       color: var(--brand);
+      background: var(--brand-soft);
     }
     .time-btn.active {
       background: var(--brand);
       border-color: var(--brand);
       color: white;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
     }
 
     .search-input {
       flex: 1;
-      min-width: 180px;
-      height: 34px;
+      min-width: 200px;
+      height: 38px;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0 10px;
-      font-size: 13px;
+      border-radius: 10px;
+      padding: 0 14px;
+      font-size: 14px;
       outline: none;
-      transition: border-color 0.15s;
+      transition: all 0.2s;
     }
     .search-input:focus {
       border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
     }
 
     .filter-actions {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
     }
     .btn {
-      height: 34px;
-      padding: 0 14px;
+      height: 38px;
+      padding: 0 18px;
       border: none;
-      border-radius: 6px;
-      font-size: 13px;
+      border-radius: 10px;
+      font-size: 14px;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s;
+      font-weight: 500;
     }
     .btn-primary {
       background: var(--brand);
       color: white;
+      box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
     }
     .btn-primary:hover {
-      background: #2860e0;
+      background: #7C3AED;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
     }
     .btn-ghost {
       background: transparent;
@@ -244,25 +265,27 @@
     }
     .btn-ghost:hover {
       color: var(--text);
-      border-color: var(--text-2);
+      border-color: var(--brand);
+      background: var(--brand-soft);
     }
 
     /* 表格区域 */
     .table-wrap {
       background: var(--card);
-      border-radius: 10px;
+      border-radius: 16px;
       border: 1px solid var(--border);
       overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .table-header {
-      padding: 14px 20px;
+      padding: 16px 24px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .table-header .count {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-2);
     }
     .table-header .count strong {
@@ -275,50 +298,51 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
+      font-size: 14px;
     }
     thead th {
-      background: #f8f9fb;
-      padding: 10px 16px;
+      background: #FAFAFA;
+      padding: 12px 20px;
       text-align: left;
       font-weight: 600;
       color: var(--text-2);
-      font-size: 12px;
+      font-size: 13px;
       white-space: nowrap;
       border-bottom: 1px solid var(--border);
     }
     tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.1s;
+      border-bottom: 1px solid #F3F4F6;
+      transition: all 0.15s;
     }
     tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: #f8f9fb; }
+    tbody tr:hover { background: var(--brand-soft); }
     td {
-      padding: 10px 16px;
+      padding: 14px 20px;
       color: var(--text);
     }
     .tag {
       display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
       font-weight: 500;
       background: var(--brand-light);
       color: var(--brand);
     }
     .count-cell {
-      font-weight: 600;
+      font-weight: 700;
       color: var(--brand);
+      font-size: 15px;
     }
     .empty-row td {
       text-align: center;
-      padding: 40px;
+      padding: 60px;
       color: var(--text-2);
     }
 
     /* 制作人小计行 */
     .maker-summary {
-      background: #f8f9fb;
+      background: #FAFAFA;
       font-weight: 600;
       color: var(--text);
     }
@@ -330,24 +354,25 @@
       right: 24px;
       background: var(--text);
       color: white;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s, transform 0.3s;
       pointer-events: none;
       z-index: 999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    .copy-toast.show { opacity: 1; }
+    .copy-toast.show { opacity: 1; transform: translateY(-4px); }
 
     /* 制作人筛选统计 */
     .maker-breakdown {
-      margin-top: 4px;
-      font-size: 11px;
+      margin-top: 6px;
+      font-size: 12px;
       color: var(--text-2);
     }
     .maker-breakdown span {
-      margin-right: 8px;
+      margin-right: 10px;
     }
     .maker-breakdown .maker-count {
       color: var(--text);
@@ -360,7 +385,7 @@
 <div class="top-banner">
   <div>
     <h1>📋 样稿制作量查询</h1>
-    <div class="subtitle">基于飞书多维表实时数据 · 支持按时间范围/制作人筛选</div>
+    <div class="subtitle">基于飞书多维表实时数据 · 支持按时间范围 / 制作人筛选</div>
   </div>
   <div class="badge">
     🔗 <a href="https://dada-6-6.github.io/feishu-data/" target="_blank">兼职任务查询 →</a>
