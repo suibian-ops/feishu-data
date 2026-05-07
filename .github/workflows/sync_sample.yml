@@ -7,11 +7,16 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:  # 手动触发：GitHub Actions 页面 → Run workflow
 
+permissions:
+  contents: write   # 允许 Actions 推送代码到仓库
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false  # 不继承 Actions token，避免 git 冲突
 
       - uses: actions/setup-python@v5
         with:
@@ -30,4 +35,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add sample_production.json sample_production.html sync_sample_production.py
           git diff --cached --quiet || git commit -m "auto: sync sample production data $(date +%Y-%m-%dT%H:%M)"
-          git push
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
