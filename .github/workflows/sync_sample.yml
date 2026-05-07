@@ -15,8 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false  # 不继承 Actions token，避免 git 冲突
 
       - uses: actions/setup-python@v5
         with:
@@ -36,5 +34,4 @@ jobs:
           git add sample_production.json sample_production.html sync_sample_production.py
           git diff --cached --quiet || git commit -m "auto: sync sample production data $(date +%Y-%m-%dT%H:%M)"
           git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
