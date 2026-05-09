@@ -32,7 +32,19 @@
     "productionMonth": null,
     "沉淀日期": 0,
     "note": "",
-    "productionPrice": 0,
+    "productionPrice": 1,
+    "沉淀价格": 0
+  },
+  {
+    "_record_id": "recvj6YPurVx6A",
+    "maker": "赵玉柳",
+    "deliverDate": "2026-05-08",
+    "sampleCount": 1,
+    "merchant": "",
+    "productionMonth": null,
+    "沉淀日期": 0,
+    "note": "",
+    "productionPrice": 1,
     "沉淀价格": 0
   },
   {
