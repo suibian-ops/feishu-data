@@ -457,10 +457,11 @@
           <tr>
             <th>#</th>
             <th>制作人</th>
-            <th>交付时间</th>
-            <th>样稿数量</th>
             <th>商家名称</th>
-            <th>制作月份</th>
+            <th>交付时间</th>
+            <th>制作价格</th>
+            <th>沉淀价格</th>
+            <th>提成合计</th>
             <th>备注</th>
           </tr>
         </thead>
@@ -588,27 +589,31 @@ function render() {
 }
 
 function renderStats() {
-  const totalCount = filteredData.reduce((s, d) => s + (d.sampleCount || 1), 0);
   const totalRecords = filteredData.length;
+  const totalProductionPrice = filteredData.reduce((s, d) => s + (d.productionPrice || 0), 0);
+  const totalSettlePrice = filteredData.reduce((s, d) => s + (d.沉淀价格 || 0), 0);
+  const totalCommission = totalProductionPrice + totalSettlePrice;
   const makers = {};
   filteredData.forEach(d => {
-    if (d.maker) makers[d.maker] = (makers[d.maker] || 0) + (d.sampleCount || 1);
+    if (d.maker) makers[d.maker] = (makers[d.maker] || 0) + 1;
   });
   const makerList = Object.entries(makers).sort((a, b) => b[1] - a[1]);
 
   let makerBreakdown = '';
   if (makerList.length > 0 && makerList.length <= 8) {
-    makerBreakdown = makerList.map(([m, c]) => `<span class="maker-count">${m}: ${c}</span>`).join('');
+    makerBreakdown = makerList.map(([m, c]) => `<span class="maker-count">${m}: ${c}条</span>`).join('');
   }
 
   const rows = [
     { label: '筛选记录数', value: totalRecords, sub: '共 ' + allData.length + ' 条原始记录' },
-    { label: '样稿总数', value: totalCount, sub: '样稿数量合计' },
+    { label: '制作价格', value: '¥' + totalProductionPrice.toLocaleString(), sub: '制作价格合计' },
+    { label: '沉淀价格', value: '¥' + totalSettlePrice.toLocaleString(), sub: '沉淀价格合计' },
+    { label: '提成总计', value: '¥' + totalCommission.toLocaleString(), sub: '制作 + 沉淀' },
     { label: '涉及制作人', value: makerList.length, sub: makerBreakdown || '—' },
   ];
 
   if (makerList.length > 0) {
-    rows.push({ label: '最多制作人', value: makerList[0][0], sub: makerList[0][1] + ' 条' });
+    rows.push({ label: '最多制作人', value: makerList[0][0], sub: makerList[0][1] + ' 条记录' });
   }
 
   document.getElementById('statsRow').innerHTML = rows.map(r => `
@@ -626,7 +631,7 @@ function renderTable() {
   const tbody = document.getElementById('tableBody');
 
   if (filteredData.length === 0) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">暂无符合条件的数据</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">暂无符合条件的数据</td></tr>';
     return;
   }
 
@@ -637,17 +642,22 @@ function renderTable() {
     return b.deliverDate.localeCompare(a.deliverDate);
   });
 
-  tbody.innerHTML = sorted.map((item, idx) => `
+  tbody.innerHTML = sorted.map((item, idx) => {
+    const pp = item.productionPrice || 0;
+    const sp = item.沉淀价格 || 0;
+    const total = pp + sp;
+    return `
     <tr>
       <td style="color:var(--text-2);font-size:12px;">${idx + 1}</td>
-      <td>${escapeHtml(item.maker || '—')}</td>
-      <td>${item.deliverDate ? formatDate(item.deliverDate) : '<span style="color:var(--text-2)">—</span>'}</td>
-      <td class="count-cell">${item.sampleCount || 1}</td>
+      <td><strong>${escapeHtml(item.maker || '—')}</strong></td>
       <td>${escapeHtml(item.merchant || '—')}</td>
-      <td>${item.productionMonth ? `<span class="tag">${item.productionMonth}</span>` : '—'}</td>
+      <td>${item.deliverDate ? formatDate(item.deliverDate) : '<span style="color:var(--text-2)">—</span>'}</td>
+      <td>${pp > 0 ? '¥' + pp.toLocaleString() : '<span style="color:var(--text-2)">—</span>'}</td>
+      <td>${sp > 0 ? '¥' + sp.toLocaleString() : '<span style="color:var(--text-2)">—</span>'}</td>
+      <td class="count-cell">${total > 0 ? '¥' + total.toLocaleString() : '<span style="color:var(--text-2)">—</span>'}</td>
       <td style="color:var(--text-2);font-size:12px;">${escapeHtml(item.note || '')}</td>
     </tr>
-  `).join('');
+  `}).join('');
 }
 
 // ==================== 工具函数 ====================
@@ -685,20 +695,24 @@ function showToast(msg) {
 
 function copyFiltered() {
   if (filteredData.length === 0) { showToast('没有可复制的数据'); return; }
-  const headers = ['制作人', '交付时间', '样稿数量', '商家名称', '制作月份', '备注'];
-  const rows = filteredData.map(d => [
-    d.maker || '', d.deliverDate || '', d.sampleCount || 1, d.merchant || '', d.productionMonth || '', d.note || ''
-  ]);
+  const headers = ['制作人', '商家名称', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注'];
+  const rows = filteredData.map(d => {
+    const pp = d.productionPrice || 0;
+    const sp = d.沉淀价格 || 0;
+    return [d.maker || '', d.merchant || '', d.deliverDate || '', pp, sp, pp + sp, d.note || ''];
+  });
   const text = [headers.join('\t'), ...rows.map(r => r.join('\t'))].join('\n');
   navigator.clipboard.writeText(text).then(() => showToast('✅ 已复制 ' + filteredData.length + ' 条记录'));
 }
 
 function exportCSV() {
   if (filteredData.length === 0) { showToast('没有可导出的数据'); return; }
-  const headers = ['制作人', '交付时间', '样稿数量', '商家名称', '制作月份', '备注', 'record_id'];
-  const rows = filteredData.map(d => [
-    d.maker || '', d.deliverDate || '', d.sampleCount || 1, d.merchant || '', d.productionMonth || '', d.note || '', d._record_id || ''
-  ]);
+  const headers = ['制作人', '商家名称', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注', 'record_id'];
+  const rows = filteredData.map(d => {
+    const pp = d.productionPrice || 0;
+    const sp = d.沉淀价格 || 0;
+    return [d.maker || '', d.merchant || '', d.deliverDate || '', pp, sp, pp + sp, d.note || '', d._record_id || ''];
+  });
   const BOM = '\uFEFF';
   const csvContent = BOM + [headers, ...rows].map(r =>
     r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')
