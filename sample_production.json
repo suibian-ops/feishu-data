@@ -1,5 +1,29 @@
 [
   {
+    "_record_id": "recvjsRvxN0msT",
+    "maker": "程胜男",
+    "deliverDate": "2026-05-12",
+    "sampleCount": 1,
+    "merchant": "",
+    "productionMonth": null,
+    "沉淀日期": 0,
+    "note": "",
+    "productionPrice": 3,
+    "沉淀价格": 0
+  },
+  {
+    "_record_id": "recvjsXJPPKqMN",
+    "maker": "赵玉柳",
+    "deliverDate": "2026-05-12",
+    "sampleCount": 1,
+    "merchant": "",
+    "productionMonth": null,
+    "沉淀日期": 0,
+    "note": "",
+    "productionPrice": 6,
+    "沉淀价格": 0
+  },
+  {
     "_record_id": "recvjor9z3nSDw",
     "maker": "白松婷",
     "deliverDate": "2026-05-11",
@@ -32,7 +56,7 @@
     "productionMonth": null,
     "沉淀日期": 0,
     "note": "",
-    "productionPrice": 0,
+    "productionPrice": 6,
     "沉淀价格": 0
   },
   {
@@ -44,7 +68,7 @@
     "productionMonth": null,
     "沉淀日期": 0,
     "note": "",
-    "productionPrice": 0,
+    "productionPrice": 6,
     "沉淀价格": 0
   },
   {
@@ -54,10 +78,10 @@
     "sampleCount": 3,
     "merchant": "",
     "productionMonth": null,
-    "沉淀日期": 0,
+    "沉淀日期": 1778515200000,
     "note": "",
     "productionPrice": 7,
-    "沉淀价格": 0
+    "沉淀价格": 3
   },
   {
     "_record_id": "recvj6c6JSl2zX",
