@@ -1,5 +1,29 @@
 [
   {
+    "_record_id": "recvjyY7AWYIW4",
+    "maker": "程胜男",
+    "deliverDate": "2026-05-13",
+    "sampleCount": 1,
+    "merchant": "",
+    "productionMonth": null,
+    "沉淀日期": 0,
+    "note": "",
+    "productionPrice": 1,
+    "沉淀价格": 0
+  },
+  {
+    "_record_id": "recvjyYgaZd15X",
+    "maker": "程胜男",
+    "deliverDate": "2026-05-13",
+    "sampleCount": 1,
+    "merchant": "",
+    "productionMonth": null,
+    "沉淀日期": 0,
+    "note": "",
+    "productionPrice": 4,
+    "沉淀价格": 0
+  },
+  {
     "_record_id": "recvjsRvxN0msT",
     "maker": "程胜男",
     "deliverDate": "2026-05-12",
@@ -57,7 +81,7 @@
     "沉淀日期": 1778601600000,
     "note": "",
     "productionPrice": 6,
-    "沉淀价格": 0
+    "沉淀价格": 3
   },
   {
     "_record_id": "recvjp3wLReAtR",
@@ -66,7 +90,7 @@
     "sampleCount": 1,
     "merchant": "",
     "productionMonth": null,
-    "沉淀日期": 0,
+    "沉淀日期": 1778688000000,
     "note": "",
     "productionPrice": 6,
     "沉淀价格": 0
