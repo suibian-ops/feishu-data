@@ -23,7 +23,7 @@ FIELD_MAP = {
     "交付时间": "deliverDate",
     "样稿数量": "sampleCount",
     "商家": "merchant",
-    "系列/科目": "series",
+    "系列|科目": "series",
     "制作月份": "productionMonth",
     "要求沉淀时间": "沉淀日期",
     "备注": "note",
