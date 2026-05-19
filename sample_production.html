@@ -459,6 +459,7 @@
             <th>制作人</th>
             <th>商家</th>
             <th>系列|科目</th>
+            <th>样稿数量</th>
             <th>交付时间</th>
             <th>制作价格</th>
             <th>沉淀价格</th>
@@ -635,7 +636,7 @@ function renderTable() {
   const tbody = document.getElementById('tableBody');
 
   if (filteredData.length === 0) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">暂无符合条件的数据</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="10">暂无符合条件的数据</td></tr>';
     return;
   }
 
@@ -650,12 +651,14 @@ function renderTable() {
     const pp = item.productionPrice || 0;
     const sp = item.沉淀价格 || 0;
     const total = pp + sp;
+    const sc = item.sampleCount || 0;
     return `
     <tr>
       <td style="color:var(--text-2);font-size:12px;">${idx + 1}</td>
       <td><strong>${escapeHtml(item.maker || '—')}</strong></td>
       <td>${escapeHtml(item.merchant || '—')}</td>
       <td>${escapeHtml(item.series || '—')}</td>
+      <td>${sc > 0 ? sc : '<span style="color:var(--text-2)">—</span>'}</td>
       <td>${item.deliverDate ? formatDate(item.deliverDate) : '<span style="color:var(--text-2)">—</span>'}</td>
       <td>${pp > 0 ? '¥' + pp.toFixed(1) : '<span style="color:var(--text-2)">—</span>'}</td>
       <td>${sp > 0 ? '¥' + sp.toFixed(1) : '<span style="color:var(--text-2)">—</span>'}</td>
@@ -699,11 +702,11 @@ function showToast(msg) {
 
 function copyFiltered() {
   if (filteredData.length === 0) { showToast('没有可复制的数据'); return; }
-  const headers = ['制作人', '商家', '系列|科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注'];
+  const headers = ['制作人', '商家', '系列|科目', '样稿数量', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注'];
   const rows = filteredData.map(d => {
     const pp = d.productionPrice || 0;
     const sp = d.沉淀价格 || 0;
-    return [d.maker || '', d.merchant || '', d.series || '', d.deliverDate || '', pp, sp, pp + sp, d.note || ''];
+    return [d.maker || '', d.merchant || '', d.series || '', d.sampleCount || 0, d.deliverDate || '', pp, sp, pp + sp, d.note || ''];
   });
   const text = [headers.join('\t'), ...rows.map(r => r.join('\t'))].join('\n');
   navigator.clipboard.writeText(text).then(() => showToast('✅ 已复制 ' + filteredData.length + ' 条记录'));
@@ -711,11 +714,11 @@ function copyFiltered() {
 
 function exportCSV() {
   if (filteredData.length === 0) { showToast('没有可导出的数据'); return; }
-  const headers = ['制作人', '商家', '系列|科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注', 'record_id'];
+  const headers = ['制作人', '商家', '系列|科目', '样稿数量', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注', 'record_id'];
   const rows = filteredData.map(d => {
     const pp = d.productionPrice || 0;
     const sp = d.沉淀价格 || 0;
-    return [d.maker || '', d.merchant || '', d.series || '', d.deliverDate || '', pp, sp, pp + sp, d.note || '', d._record_id || ''];
+    return [d.maker || '', d.merchant || '', d.series || '', d.sampleCount || 0, d.deliverDate || '', pp, sp, pp + sp, d.note || '', d._record_id || ''];
   });
   const BOM = '\uFEFF';
   const csvContent = BOM + [headers, ...rows].map(r =>
