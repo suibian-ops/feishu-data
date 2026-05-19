@@ -139,6 +139,23 @@ def parse_number(value):
     return 0
 
 
+def parse_float(value):
+    """解析价格等需要保留小数的数值字段"""
+    if value is None:
+        return 0.0
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        value = value.strip()
+        if value == "":
+            return 0.0
+        try:
+            return float(value)
+        except:
+            pass
+    return 0.0
+
+
 def parse_date(value):
     """解析日期字段，返回 YYYY-MM-DD 字符串或 None"""
     if not value:
@@ -169,8 +186,10 @@ def transform_record(record):
         raw = fields.get(feishu_name)
         if json_name == "maker":
             out[json_name] = parse_text_field(raw)
-        elif json_name in ("sampleCount", "沉淀日期", "productionPrice", "沉淀价格"):
+        elif json_name in ("sampleCount",):
             out[json_name] = parse_number(raw)
+        elif json_name in ("productionPrice", "沉淀价格"):
+            out[json_name] = parse_float(raw)
         elif json_name in ("deliverDate", "productionMonth"):
             out[json_name] = parse_date(raw)
         else:
