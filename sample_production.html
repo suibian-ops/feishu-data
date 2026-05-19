@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>样稿制作量查询</title>
+  <style>
+    :root {
+      --brand: #10B981;
+      --brand-light: #D1FAE5;
+      --brand-soft: #ECFDF5;
+      --bg: #FAFAFA;
+      --card: #ffffff;
+      --text: #1f2937;
+      --text-2: #6B7280;
+      --border: #E5E7EB;
+      --green: #10B981;
+      --green-dark: #059669;
+      --orange: #F59E0B;
+      --orange-bg: #FEF3C7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #ECFDF5 0%, #FAFAFA 300px);
+      color: var(--text);
+      font-size: 14px;
+      padding: 24px;
+      min-height: 100vh;
+    }
+
+    /* 顶部横幅 */
+    .top-banner {
+      background: linear-gradient(135deg, #ffffff 0%, #ECFDF5 100%);
+      color: var(--text);
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border: 1px solid #D1FAE5;
+      box-shadow: 0 1px 3px rgba(16, 185, 129, 0.08);
+    }
+    .top-banner h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .top-banner .subtitle {
+      font-size: 14px;
+      color: var(--text-2);
+      margin-top: 4px;
+    }
+    .top-banner .badge {
+      background: var(--brand-light);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--brand);
+      font-weight: 500;
+    }
+    .top-banner .badge a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+    .top-banner .badge a:hover {
+      text-decoration: underline;
+    }
+
+    /* 数据加载提示 */
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: var(--text-2);
+      font-size: 15px;
+    }
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--brand);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .load-error {
+      text-align: center;
+      padding: 40px;
+      background: #fef2f2;
+      border-radius: 12px;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    /* 统计卡片 */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .stat-card .label {
+      font-size: 13px;
+      color: var(--text-2);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .stat-card .value {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--brand);
+    }
+    .stat-card .sub {
+      font-size: 12px;
+      color: var(--text-2);
+      margin-top: 6px;
+    }
+
+    /* 筛选区域 */
+    .filter-bar {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .filter-group label {
+      font-size: 13px;
+      color: var(--text-2);
+      font-weight: 500;
+    }
+    .filter-group input,
+    .filter-group select {
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0 14px;
+      font-size: 14px;
+      color: var(--text);
+      background: white;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .filter-group input:focus,
+    .filter-group select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    input[type="date"] {
+      width: 150px;
+    }
+
+    /* 快捷时间按钮 */
+    .time-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .time-btns label {
+      font-size: 13px;
+      color: var(--text-2);
+      font-weight: 500;
+    }
+    .btn-row {
+      display: flex;
+      gap: 8px;
+    }
+    .time-btn {
+      height: 38px;
+      padding: 0 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .time-btn:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+      background: var(--brand-soft);
+    }
+    .time-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: white;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0 14px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .filter-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      height: 38px;
+      padding: 0 18px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .btn-primary {
+      background: var(--brand);
+      color: white;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-2);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      color: var(--brand);
+      border-color: var(--brand);
+      background: var(--brand-soft);
+    }
+
+    /* 表格区域 */
+    .table-wrap {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .table-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .table-header .count {
+      font-size: 14px;
+      color: var(--text-2);
+    }
+    .table-header .count strong {
+      color: var(--brand);
+      font-weight: 600;
+    }
+    .table-scroll {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead th {
+      background: #F0FDF4;
+      padding: 12px 20px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--green-dark);
+      font-size: 13px;
+      white-space: nowrap;
+      border-bottom: 2px solid var(--brand-light);
+    }
+    tbody tr {
+      border-bottom: 1px solid #F3F4F6;
+      transition: all 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--brand-soft); }
+    td {
+      padding: 14px 20px;
+      color: var(--text);
+    }
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--brand-light);
+      color: var(--brand);
+    }
+    .count-cell {
+      font-weight: 700;
+      color: var(--brand);
+      font-size: 15px;
+    }
+    .empty-row td {
+      text-align: center;
+      padding: 60px;
+      color: var(--text-2);
+    }
+
+    /* 制作人小计行 */
+    .maker-summary {
+      background: #F0FDF4;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* 复制提示 */
+    .copy-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .copy-toast.show { opacity: 1; transform: translateY(-4px); }
+
+    /* 制作人筛选统计 */
+    .maker-breakdown {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-2);
+    }
+    .maker-breakdown span {
+      margin-right: 10px;
+    }
+    .maker-breakdown .maker-count {
+      color: var(--brand);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-banner">
+  <div>
+    <h1>🌿 样稿制作量查询</h1>
+    <div class="subtitle">基于飞书多维表实时数据 · 支持按时间范围 / 制作人筛选</div>
+  </div>
+  <div class="badge">
+    🔗 <a href="https://dada-6-6.github.io/feishu-data/" target="_blank">兼职任务查询 →</a>
+  </div>
+</div>
+
+<!-- 数据加载状态 -->
+<div id="loadingState" class="loading">正在加载飞书数据...</div>
+<div id="errorState" class="load-error" style="display:none">
+  数据加载失败，请确认 <code>sample_production.json</code> 已同步到仓库
+</div>
+
+<!-- 主内容（加载后显示） -->
+<div id="mainContent" style="display:none">
+
+  <!-- 统计卡片 -->
+  <div class="stats-row" id="statsRow"></div>
+
+  <!-- 筛选栏 -->
+  <div class="filter-bar">
+    <div class="time-btns">
+      <label>快捷时间</label>
+      <div class="btn-row">
+        <button class="time-btn" onclick="setTimeRange('today')">今天</button>
+        <button class="time-btn" onclick="setTimeRange('thisWeek')">本周</button>
+        <button class="time-btn active" onclick="setTimeRange('lastWeek')">上周</button>
+        <button class="time-btn" onclick="setTimeRange('thisMonth')">当月</button>
+        <button class="time-btn" onclick="setTimeRange('lastMonth')">上月</button>
+        <button class="time-btn" onclick="setTimeRange('all')">全部</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label>开始日期</label>
+      <input type="date" id="startDate">
+    </div>
+    <div class="filter-group">
+      <label>结束日期</label>
+      <input type="date" id="endDate">
+    </div>
+
+    <div class="filter-group">
+      <label>制作人</label>
+      <select id="makerFilter">
+        <option value="">全部</option>
+      </select>
+    </div>
+
+    <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索商家、备注...">
+
+    <div class="filter-actions">
+      <button class="btn btn-ghost" onclick="resetFilters()">重置</button>
+      <button class="btn btn-primary" onclick="render()">查询</button>
+    </div>
+  </div>
+
+  <!-- 表格 -->
+  <div class="table-wrap">
+    <div class="table-header">
+      <span class="count">共 <strong id="filteredCount">0</strong> 条记录</span>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost" onclick="copyFiltered()">📋 复制筛选结果</button>
+        <button class="btn btn-ghost" onclick="exportCSV()">⬇️ 导出 CSV</button>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>制作人</th>
+            <th>商家</th>
+            <th>系列|科目</th>
+            <th>交付时间</th>
+            <th>制作价格</th>
+            <th>沉淀价格</th>
+            <th>提成合计</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="copy-toast" id="copyToast">✅ 已复制到剪贴板</div>
+
+<script>
+// ==================== 全局状态 ====================
+let allData = [];
+let filteredData = [];
+let currentRange = 'lastWeek';
+let dateStart = '';
+let dateEnd = '';
+
+const STORAGE_KEY = 'sample_prod_range';
+
+// ==================== 初始化 ====================
+async function init() {
+  try {
+    const resp = await fetch('https://raw.githubusercontent.com/suibian-ops/feishu-data/main/sample_production.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    allData = await resp.json();
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    populateMakerFilter();
+    setTimeRange(localStorage.getItem(STORAGE_KEY) || 'lastWeek');
+    render();
+  } catch (e) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    console.error(e);
+  }
+}
+
+// ==================== 制作人下拉 ====================
+function populateMakerFilter() {
+  const makers = [...new Set(allData.map(d => d.maker).filter(Boolean))].sort();
+  const sel = document.getElementById('makerFilter');
+  makers.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = m;
+    sel.appendChild(opt);
+  });
+}
+
+// ==================== 时间范围 ====================
+function setTimeRange(range) {
+  currentRange = range;
+  localStorage.setItem(STORAGE_KEY, range);
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+
+  document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('.time-btn');
+  const idx = ['today', 'thisWeek', 'lastWeek', 'thisMonth', 'lastMonth', 'all'].indexOf(range);
+  if (idx >= 0 && idx < btns.length) btns[idx].classList.add('active');
+
+  let start = null, end = new Date(today);
+
+  if (range === 'today') {
+    start = new Date(today); start.setHours(0, 0, 0, 0);
+  } else if (range === 'thisWeek') {
+    const dow = today.getDay(); // 0=Sun
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - ((dow + 6) % 7));
+    monday.setHours(0, 0, 0, 0);
+    start = monday;
+  } else if (range === 'lastWeek') {
+    const dow = today.getDay();
+    const thisMonday = new Date(today);
+    thisMonday.setDate(today.getDate() - ((dow + 6) % 7));
+    thisMonday.setHours(0, 0, 0, 0);
+    const lastMonday = new Date(thisMonday);
+    lastMonday.setDate(thisMonday.getDate() - 7);
+    const lastSunday = new Date(thisMonday);
+    lastSunday.setDate(thisMonday.getDate() - 1);
+    lastSunday.setHours(23, 59, 59, 999);
+    start = lastMonday; end = lastSunday;
+  } else if (range === 'thisMonth') {
+    start = new Date(today.getFullYear(), today.getMonth(), 1);
+    start.setHours(0, 0, 0, 0);
+  } else if (range === 'lastMonth') {
+    const lms = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const lme = new Date(today.getFullYear(), today.getMonth(), 0);
+    lme.setHours(23, 59, 59, 999);
+    start = lms; end = lme;
+  } else {
+    start = null; end = null;
+  }
+
+  dateStart = start ? start.getFullYear() + '-' + String(start.getMonth()+1).padStart(2,'0') + '-' + String(start.getDate()).padStart(2,'0') : '';
+  dateEnd = end ? end.getFullYear() + '-' + String(end.getMonth()+1).padStart(2,'0') + '-' + String(end.getDate()).padStart(2,'0') : '';
+  document.getElementById('startDate').value = dateStart;
+  document.getElementById('endDate').value = dateEnd;
+
+  render();
+}
+
+// ==================== 筛选 & 渲染 ====================
+function render() {
+  const startVal = document.getElementById('startDate').value;
+  const endVal = document.getElementById('endDate').value;
+  const makerVal = document.getElementById('makerFilter').value;
+  const kw = document.getElementById('searchInput').value.trim().toLowerCase();
+
+  filteredData = allData.filter(item => {
+    const date = item.deliverDate;
+    if (startVal && date && date < startVal) return false;
+    if (endVal && date && date > endVal) return false;
+    if (makerVal && item.maker !== makerVal) return false;
+    if (kw) {
+      const searchable = [item.maker, item.merchant, item.series, item.note, item.productionMonth].join(' ').toLowerCase();
+      if (!searchable.includes(kw)) return false;
+    }
+    return true;
+  });
+
+  renderStats();
+  renderTable();
+}
+
+function renderStats() {
+  const totalRecords = filteredData.length;
+  const totalProductionPrice = filteredData.reduce((s, d) => s + (d.productionPrice || 0), 0);
+  const totalSettlePrice = filteredData.reduce((s, d) => s + (d.沉淀价格 || 0), 0);
+  const totalCommission = totalProductionPrice + totalSettlePrice;
+  const makers = {};
+  filteredData.forEach(d => {
+    if (d.maker) makers[d.maker] = (makers[d.maker] || 0) + 1;
+  });
+  const makerList = Object.entries(makers).sort((a, b) => b[1] - a[1]);
+
+  let makerBreakdown = '';
+  if (makerList.length > 0 && makerList.length <= 8) {
+    makerBreakdown = makerList.map(([m, c]) => `<span class="maker-count">${m}: ${c}条</span>`).join('');
+  }
+
+  const fmt = n => '¥' + n.toFixed(1);
+  const rows = [
+    { label: '筛选记录数', value: totalRecords, sub: '共 ' + allData.length + ' 条原始记录' },
+    { label: '制作价格', value: fmt(totalProductionPrice), sub: '制作价格合计' },
+    { label: '沉淀价格', value: fmt(totalSettlePrice), sub: '沉淀价格合计' },
+    { label: '提成总计', value: fmt(totalCommission), sub: '制作 + 沉淀' },
+    { label: '涉及制作人', value: makerList.length, sub: makerBreakdown || '—' },
+  ];
+
+  if (makerList.length > 0) {
+    rows.push({ label: '最多制作人', value: makerList[0][0], sub: makerList[0][1] + ' 条记录' });
+  }
+
+  document.getElementById('statsRow').innerHTML = rows.map(r => `
+    <div class="stat-card">
+      <div class="label">${r.label}</div>
+      <div class="value">${r.value}</div>
+      ${r.sub ? `<div class="sub">${r.sub}</div>` : ''}
+    </div>
+  `).join('');
+
+  document.getElementById('filteredCount').textContent = totalRecords;
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+
+  if (filteredData.length === 0) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">暂无符合条件的数据</td></tr>';
+    return;
+  }
+
+  // 按日期降序排列
+  const sorted = [...filteredData].sort((a, b) => {
+    if (!a.deliverDate) return 1;
+    if (!b.deliverDate) return -1;
+    return b.deliverDate.localeCompare(a.deliverDate);
+  });
+
+  tbody.innerHTML = sorted.map((item, idx) => {
+    const pp = item.productionPrice || 0;
+    const sp = item.沉淀价格 || 0;
+    const total = pp + sp;
+    return `
+    <tr>
+      <td style="color:var(--text-2);font-size:12px;">${idx + 1}</td>
+      <td><strong>${escapeHtml(item.maker || '—')}</strong></td>
+      <td>${escapeHtml(item.merchant || '—')}</td>
+      <td>${escapeHtml(item.series || '—')}</td>
+      <td>${item.deliverDate ? formatDate(item.deliverDate) : '<span style="color:var(--text-2)">—</span>'}</td>
+      <td>${pp > 0 ? '¥' + pp.toFixed(1) : '<span style="color:var(--text-2)">—</span>'}</td>
+      <td>${sp > 0 ? '¥' + sp.toFixed(1) : '<span style="color:var(--text-2)">—</span>'}</td>
+      <td class="count-cell">${total > 0 ? '¥' + total.toFixed(1) : '<span style="color:var(--text-2)">—</span>'}</td>
+      <td style="color:var(--text-2);font-size:12px;">${escapeHtml(item.note || '')}</td>
+    </tr>
+  `}).join('');
+}
+
+// ==================== 工具函数 ====================
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  const parts = dateStr.split('-');
+  if (parts.length === 3) {
+    return `${parseInt(parts[1])}月${parseInt(parts[2])}日`;
+  }
+  return dateStr;
+}
+
+function resetFilters() {
+  document.getElementById('makerFilter').value = '';
+  document.getElementById('searchInput').value = '';
+  setTimeRange('lastWeek');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('copyToast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function copyFiltered() {
+  if (filteredData.length === 0) { showToast('没有可复制的数据'); return; }
+  const headers = ['制作人', '商家', '系列|科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注'];
+  const rows = filteredData.map(d => {
+    const pp = d.productionPrice || 0;
+    const sp = d.沉淀价格 || 0;
+    return [d.maker || '', d.merchant || '', d.series || '', d.deliverDate || '', pp, sp, pp + sp, d.note || ''];
+  });
+  const text = [headers.join('\t'), ...rows.map(r => r.join('\t'))].join('\n');
+  navigator.clipboard.writeText(text).then(() => showToast('✅ 已复制 ' + filteredData.length + ' 条记录'));
+}
+
+function exportCSV() {
+  if (filteredData.length === 0) { showToast('没有可导出的数据'); return; }
+  const headers = ['制作人', '商家', '系列|科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注', 'record_id'];
+  const rows = filteredData.map(d => {
+    const pp = d.productionPrice || 0;
+    const sp = d.沉淀价格 || 0;
+    return [d.maker || '', d.merchant || '', d.series || '', d.deliverDate || '', pp, sp, pp + sp, d.note || '', d._record_id || ''];
+  });
+  const BOM = '\uFEFF';
+  const csvContent = BOM + [headers, ...rows].map(r =>
+    r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')
+  ).join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `样稿制作量_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ CSV 已下载');
+}
+
+// ==================== 启动 ====================
+init();
+</script>
+</body>
+</html>
