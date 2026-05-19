@@ -458,7 +458,7 @@
             <th>#</th>
             <th>制作人</th>
             <th>商家</th>
-            <th>系列/科目</th>
+            <th>系列|科目</th>
             <th>交付时间</th>
             <th>制作价格</th>
             <th>沉淀价格</th>
@@ -696,7 +696,7 @@ function showToast(msg) {
 
 function copyFiltered() {
   if (filteredData.length === 0) { showToast('没有可复制的数据'); return; }
-  const headers = ['制作人', '商家', '系列/科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注'];
+  const headers = ['制作人', '商家', '系列|科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注'];
   const rows = filteredData.map(d => {
     const pp = d.productionPrice || 0;
     const sp = d.沉淀价格 || 0;
@@ -708,7 +708,7 @@ function copyFiltered() {
 
 function exportCSV() {
   if (filteredData.length === 0) { showToast('没有可导出的数据'); return; }
-  const headers = ['制作人', '商家', '系列/科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注', 'record_id'];
+  const headers = ['制作人', '商家', '系列|科目', '交付时间', '制作价格', '沉淀价格', '提成合计', '备注', 'record_id'];
   const rows = filteredData.map(d => {
     const pp = d.productionPrice || 0;
     const sp = d.沉淀价格 || 0;
