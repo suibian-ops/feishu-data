@@ -5,12 +5,12 @@
     "deliverDate": "2026-05-19",
     "sampleCount": 1,
     "merchant": "斗半匠",
-    "series": "预习新初一英语",
+    "series": "预习新初一英语语篇讲解",
     "productionMonth": null,
     "沉淀日期": "1779120000000",
     "note": "",
     "productionPrice": 1.5,
-    "沉淀价格": 0.0
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvk2Tdk3Ihrw",
@@ -20,10 +20,10 @@
     "merchant": "大连音像出版社",
     "series": "金牌每课通-数学",
     "productionMonth": null,
-    "沉淀日期": "",
+    "沉淀日期": "1779120000000",
     "note": "",
     "productionPrice": 3.0,
-    "沉淀价格": 0.0
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvjWuc4lqjfN",
@@ -57,7 +57,7 @@
     "deliverDate": "2026-05-15",
     "sampleCount": 1,
     "merchant": "西安半斗匠",
-    "series": "英语预备新初一",
+    "series": "英语预备新初一题目讲解",
     "productionMonth": null,
     "沉淀日期": "1778774400000",
     "note": "",
