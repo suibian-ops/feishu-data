@@ -2,8 +2,8 @@ name: Send Weekly Report
 
 on:
   schedule:
-    # 每周一北京时间上午9点 (UTC 1:00)
-    - cron: '0 1 * * 1'
+    # 每周一北京时间上午6点 (UTC 前一天22:00)
+    - cron: '0 22 * * 0'
   # 也支持手动触发
   workflow_dispatch:
 
