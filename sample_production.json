@@ -22,7 +22,7 @@
     "productionMonth": null,
     "沉淀日期": "",
     "note": "",
-    "productionPrice": 0.0,
+    "productionPrice": 3.0,
     "沉淀价格": 0.0
   },
   {
@@ -33,23 +33,49 @@
     "merchant": "西安斗半匠",
     "series": "预备新初一语文",
     "productionMonth": null,
-    "沉淀日期": "",
+    "沉淀日期": "1779379200000",
     "note": "",
-    "productionPrice": 0.0,
-    "沉淀价格": 0.0
+    "productionPrice": 13.0,
+    "沉淀价格": 8.0
   },
   {
     "_record_id": "recvkfvlqvQRYX",
     "maker": "白松婷",
     "deliverDate": "2026-05-21",
-    "sampleCount": 3,
+    "sampleCount": 1,
     "merchant": "西安斗半匠",
-    "series": "考点速记语数外",
+    "series": "考点速记语文",
+    "productionMonth": null,
+    "沉淀日期": "1779379200000",
+    "note": "",
+    "productionPrice": 9.0,
+    "沉淀价格": 6.0
+  },
+  {
+    "_record_id": "recvkkeBuRKUKR",
+    "maker": "白松婷",
+    "deliverDate": "2026-05-21",
+    "sampleCount": 1,
+    "merchant": "西安斗半匠",
+    "series": "考点速记英语",
     "productionMonth": null,
     "沉淀日期": "",
     "note": "",
-    "productionPrice": 0.0,
+    "productionPrice": 3.0,
     "沉淀价格": 0.0
+  },
+  {
+    "_record_id": "recvkkeDjOH45X",
+    "maker": "白松婷",
+    "deliverDate": "2026-05-21",
+    "sampleCount": 1,
+    "merchant": "西安斗半匠",
+    "series": "考点速记数学",
+    "productionMonth": null,
+    "沉淀日期": "1779379200000",
+    "note": "",
+    "productionPrice": 3.0,
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvk8zVasB4X0",
@@ -62,7 +88,7 @@
     "沉淀日期": "1779292800000",
     "note": "",
     "productionPrice": 1.5,
-    "沉淀价格": 0.0
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvk8AMn5PWZ9",
@@ -166,7 +192,7 @@
     "沉淀日期": "1779292800000",
     "note": "",
     "productionPrice": 4.5,
-    "沉淀价格": 0.0
+    "沉淀价格": 6.0
   },
   {
     "_record_id": "recvjGiAcV33lu",
