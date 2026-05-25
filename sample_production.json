@@ -1,5 +1,57 @@
 [
   {
+    "_record_id": "recvkARf5Jlv6o",
+    "maker": "赵玉柳",
+    "deliverDate": "2026-05-25",
+    "sampleCount": 1,
+    "merchant": "湖南新华书店",
+    "series": "看图写话练字帖1年级",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 0.0,
+    "沉淀价格": 0.0
+  },
+  {
+    "_record_id": "recvkAZoPf8eSo",
+    "maker": "程胜男",
+    "deliverDate": "2026-05-25",
+    "sampleCount": 1,
+    "merchant": "理想众望",
+    "series": "小学教材划重点语文",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 0.0,
+    "沉淀价格": 0.0
+  },
+  {
+    "_record_id": "recvkB5CXDKSY4",
+    "maker": "白松婷",
+    "deliverDate": "2026-05-25",
+    "sampleCount": 1,
+    "merchant": "东北师范大学",
+    "series": "儿童数学原理与训练一本通",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 0.0,
+    "沉淀价格": 0.0
+  },
+  {
+    "_record_id": "recvkBezQlVQZM",
+    "maker": "赵玉柳",
+    "deliverDate": "2026-05-25",
+    "sampleCount": 1,
+    "merchant": "湖南新华书店",
+    "series": "同步作文练字帖5年级",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 4.5,
+    "沉淀价格": 0.0
+  },
+  {
     "_record_id": "recvkeOsMs81Pp",
     "maker": "赵玉柳",
     "deliverDate": "2026-05-21",
@@ -59,10 +111,10 @@
     "merchant": "西安斗半匠",
     "series": "考点速记英语",
     "productionMonth": null,
-    "沉淀日期": "",
+    "沉淀日期": "1779638400000",
     "note": "",
     "productionPrice": 3.0,
-    "沉淀价格": 0.0
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvkkeDjOH45X",
@@ -187,7 +239,7 @@
     "deliverDate": "2026-05-15",
     "sampleCount": 1,
     "merchant": "湖南新华书店",
-    "series": "同步作文练字帖",
+    "series": "同步作文练字帖3年级",
     "productionMonth": null,
     "沉淀日期": "1779292800000",
     "note": "",
