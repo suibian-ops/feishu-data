@@ -1,5 +1,18 @@
 [
   {
+    "_record_id": "recvkUXoraTGDP",
+    "maker": "赵玉柳",
+    "deliverDate": "2026-05-28",
+    "sampleCount": 1,
+    "merchant": "速进文化",
+    "series": "高考满分作文视频讲解",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 0.0,
+    "沉淀价格": 0.0
+  },
+  {
     "_record_id": "recvkNpwKNP7vb",
     "maker": "程胜男",
     "deliverDate": "2026-05-27",
@@ -7,10 +20,10 @@
     "merchant": "智泽贤文化",
     "series": "英语口袋书",
     "productionMonth": null,
-    "沉淀日期": "",
+    "沉淀日期": "1779897600000",
     "note": "",
     "productionPrice": 4.5,
-    "沉淀价格": 0.0
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvkOvAQAGvin",
@@ -22,7 +35,7 @@
     "productionMonth": null,
     "沉淀日期": "",
     "note": "",
-    "productionPrice": 0.0,
+    "productionPrice": 6.0,
     "沉淀价格": 0.0
   },
   {
