@@ -9,7 +9,7 @@
     "productionMonth": null,
     "沉淀日期": "",
     "note": "",
-    "productionPrice": 0.0,
+    "productionPrice": 6.5,
     "沉淀价格": 0.0
   },
   {
@@ -33,10 +33,10 @@
     "merchant": "金帆启航作文",
     "series": "作文三/五年级",
     "productionMonth": null,
-    "沉淀日期": "",
+    "沉淀日期": "1779984000000",
     "note": "",
     "productionPrice": 6.0,
-    "沉淀价格": 0.0
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvkARf5Jlv6o",
@@ -252,7 +252,7 @@
     "deliverDate": "2026-05-18",
     "sampleCount": 1,
     "merchant": "理想众望",
-    "series": "小学划重点",
+    "series": "小学划重点数学",
     "productionMonth": null,
     "沉淀日期": "",
     "note": "",
@@ -434,7 +434,7 @@
     "deliverDate": "2026-05-09",
     "sampleCount": 1,
     "merchant": "经论传媒",
-    "series": "初中数学模型",
+    "series": "初中数学 模型",
     "productionMonth": null,
     "沉淀日期": "",
     "note": "",
@@ -837,7 +837,7 @@
     "deliverDate": "2026-04-27",
     "sampleCount": 1,
     "merchant": "天星文化",
-    "series": "中考45套",
+    "series": "中考45套物理试讲题",
     "productionMonth": null,
     "沉淀日期": "",
     "note": "",
