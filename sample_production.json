@@ -1,5 +1,57 @@
 [
   {
+    "_record_id": "recvlmQ22kisLq",
+    "maker": "程胜男",
+    "deliverDate": "2026-06-02",
+    "sampleCount": 1,
+    "merchant": "西安斗半匠",
+    "series": "同步预习课英语",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 4.5,
+    "沉淀价格": 0.0
+  },
+  {
+    "_record_id": "recvln4t8uALMk",
+    "maker": "白松婷",
+    "deliverDate": "2026-06-02",
+    "sampleCount": 1,
+    "merchant": "恩波教育",
+    "series": "阅读专项语文培优五/六年级",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 3.0,
+    "沉淀价格": 0.0
+  },
+  {
+    "_record_id": "recvlnnGN4RFoA",
+    "maker": "赵玉柳",
+    "deliverDate": "2026-06-02",
+    "sampleCount": 1,
+    "merchant": "河南鼎成图书",
+    "series": "单元提分卷 历史",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 1.5,
+    "沉淀价格": 0.0
+  },
+  {
+    "_record_id": "recvloa1A85uYh",
+    "maker": "赵玉柳",
+    "deliverDate": "2026-06-02",
+    "sampleCount": 1,
+    "merchant": "一本图书",
+    "series": "课后小练习 小学数学",
+    "productionMonth": null,
+    "沉淀日期": "",
+    "note": "",
+    "productionPrice": 0.0,
+    "沉淀价格": 0.0
+  },
+  {
     "_record_id": "recvlhwb2otXWs",
     "maker": "赵玉柳",
     "deliverDate": "2026-06-01",
@@ -9,8 +61,8 @@
     "productionMonth": null,
     "沉淀日期": "1780243200000",
     "note": "",
-    "productionPrice": 0.0,
-    "沉淀价格": 0.0
+    "productionPrice": 4.5,
+    "沉淀价格": 3.0
   },
   {
     "_record_id": "recvlilOkdn8MZ",
@@ -21,8 +73,8 @@
     "series": "五步法同步作文-3上",
     "productionMonth": null,
     "沉淀日期": "",
-    "note": "",
-    "productionPrice": 0.0,
+    "note": "内容多、篇幅超级长",
+    "productionPrice": 9.0,
     "沉淀价格": 0.0
   },
   {
